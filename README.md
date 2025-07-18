@@ -14,11 +14,11 @@ A complete full-stack SaaS application that translates Korean manhwa (comics) in
 ## Tech Stack
 
 - **Frontend**: React + TypeScript + Tailwind CSS
-- **Backend**: Node.js + Express
+- **Backend**: Node.js + Express.js
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **AI Translation**: Google Gemini API
-- **OCR**: easyOCR
+- **OCR**: easyOCR / pytesseract (Tesseract)
 - **PDF Processing**: PyMuPDF (fitz)
 
 ## Setup Instructions
