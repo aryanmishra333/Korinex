@@ -18,7 +18,7 @@ A complete full-stack SaaS application that translates Korean manhwa (comics) in
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **AI Translation**: Google Gemini API
-- **OCR**: easyOCR / pytesseract (Tesseract)
+- **OCR**: easyOCR 
 - **PDF Processing**: PyMuPDF (fitz)
 
 ## Setup Instructions
