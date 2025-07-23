@@ -22,7 +22,8 @@ A complete full-stack SaaS application that translates Korean manhwa (comics) in
 - **PDF Processing**: PyMuPDF (fitz)
 
 ## High Level Architecture Diagram:
-<img width="2555" height="954" alt="korinex HLD" src="https://github.com/user-attachments/assets/2117ac06-a748-4c2b-a4b3-d9d6e0c751e6" />
+<img width="2555" height="741" alt="korinex HLD" src="https://github.com/user-attachments/assets/86b597e5-2cf6-49d4-b81d-4eeccde3a3a6" />
+
 
 ## Setup Instructions
 
