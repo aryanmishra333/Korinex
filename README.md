@@ -1,6 +1,6 @@
 # Korinex - AI-Powered Korean Manhwa Translator
 
-A complete full-stack SaaS application that translates Korean manhwa (comics) into English using AI technology.
+A complete full-stack SaaS application that translates Korean manhwa (comics) into English using AI.
 
 ## Features
 
