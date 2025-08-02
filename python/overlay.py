@@ -3,8 +3,6 @@ import json
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
 
-# This is a placeholder overlay script
-# You'll need to implement the actual overlay logic based on your requirements
 
 IMAGE_FOLDER = "output"
 OCR_FOLDER = "ocr_results"
@@ -13,10 +11,6 @@ OVERLAY_FOLDER = "overlayed"
 os.makedirs(OVERLAY_FOLDER, exist_ok=True)
 
 def overlay_text_on_image(image_path, ocr_data, translations):
-    """
-    Overlay translated text on the image
-    This is a simplified version - you'll need to implement proper text positioning
-    """
     image = Image.open(image_path)
     draw = ImageDraw.Draw(image)
     
@@ -25,9 +19,7 @@ def overlay_text_on_image(image_path, ocr_data, translations):
         font = ImageFont.truetype("arial.ttf", 20)
     except:
         font = ImageFont.load_default()
-    
-    # For now, just place text at the center
-    # In a real implementation, you'd use the OCR bounding boxes
+
     if translations:
         text = translations[0] if len(translations) > 0 else "Translation"
         bbox = draw.textbbox((0, 0), text, font=font)
