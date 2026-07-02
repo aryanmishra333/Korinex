@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import { supabase } from '../lib/supabase'
 import { FileText, Clock, CheckCircle, XCircle, Download, Upload } from 'lucide-react'
 
 interface Project {
@@ -16,23 +14,16 @@ interface Project {
 export const Dashboard: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
-  const { user } = useAuth()
 
   useEffect(() => {
-    if (user) {
-      fetchProjects()
-    }
-  }, [user])
+    fetchProjects()
+  }, [])
 
   const fetchProjects = async () => {
     try {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('user_id', user?.id)
-        .order('created_at', { ascending: false })
-
-      if (error) throw error
+      const response = await fetch('/api/projects')
+      if (!response.ok) throw new Error('Failed to load projects')
+      const data = await response.json()
       setProjects(data || [])
     } catch (error) {
       console.error('Error fetching projects:', error)

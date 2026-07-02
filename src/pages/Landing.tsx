@@ -9,14 +9,15 @@ export const Landing: React.FC = () => {
       <section className="text-center py-20">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            AI-Powered Korean{' '}
+            Translate Manga, Manhua &{' '}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Manhwa Translator
+              Manhwa with AI
             </span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Transform your Korean manhwa into perfectly translated English versions using cutting-edge AI technology. 
-            Fast, accurate, and preserving the original artistic style.
+            Transform Japanese, Chinese, and Korean comics into perfectly translated English
+            versions using cutting-edge AI vision. The source language is detected automatically,
+            preserving the original artistic style.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -58,7 +59,7 @@ export const Landing: React.FC = () => {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">AI Processing</h3>
               <p className="text-gray-600">
-                Our AI extracts text, translates it, and overlays English perfectly
+                AI vision detects the language, reads the text, translates it, and overlays English perfectly
               </p>
             </div>
             <div className="text-center group">

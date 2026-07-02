@@ -28,3 +28,16 @@ python/.env
 python/.env.*
 server/.env
 server/.env.*
+
+# Python
+.venv
+venv
+__pycache__/
+*.pyc
+# Pipeline job outputs
+python/work/
+
+# Server runtime data (temporary local store + uploads + outputs)
+server/uploads/
+server/work/
+server/data/

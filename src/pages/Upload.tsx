@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Upload as UploadIcon, FileText, X } from 'lucide-react'
-import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 export const Upload: React.FC = () => {
   const [file, setFile] = useState<File | null>(null)
   const [title, setTitle] = useState('')
   const [uploading, setUploading] = useState(false)
-  const { user } = useAuth()
   const navigate = useNavigate()
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -28,7 +26,7 @@ export const Upload: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!file || !user) return
+    if (!file) return
 
     setUploading(true)
     
@@ -36,7 +34,6 @@ export const Upload: React.FC = () => {
       const formData = new FormData()
       formData.append('file', file)
       formData.append('title', title)
-      formData.append('userId', user.id)
 
       const response = await fetch('/api/upload', {
         method: 'POST',
@@ -59,7 +56,10 @@ export const Upload: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Upload Korean Manhwa</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Upload Your Comic</h1>
+        <p className="text-gray-500 mb-6">
+          Manga, manhua, or manhwa (Japanese, Chinese, or Korean) — the language is detected automatically.
+        </p>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

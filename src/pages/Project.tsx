@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import { supabase } from '../lib/supabase'
 import { ArrowLeft, Play, Download, RefreshCw, FileText, Clock, CheckCircle, XCircle } from 'lucide-react'
 
 interface Project {
@@ -18,29 +16,25 @@ export const Project: React.FC = () => {
   const [project, setProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
   const [translating, setTranslating] = useState(false)
-  const { user } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (id && user) {
+    if (id) {
       fetchProject()
     }
-  }, [id, user])
+  }, [id])
 
-  const fetchProject = async () => {
+  const fetchProject = async (): Promise<Project | null> => {
     try {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('id', id)
-        .eq('user_id', user?.id)
-        .single()
-
-      if (error) throw error
+      const response = await fetch(`/api/status/${id}`)
+      if (!response.ok) throw new Error('Project not found')
+      const data: Project = await response.json()
       setProject(data)
+      return data
     } catch (error) {
       console.error('Error fetching project:', error)
       navigate('/dashboard')
+      return null
     } finally {
       setLoading(false)
     }
@@ -48,7 +42,7 @@ export const Project: React.FC = () => {
 
   const startTranslation = async () => {
     if (!project) return
-    
+
     setTranslating(true)
     try {
       const response = await fetch(`/api/translate/${project.id}`, {
@@ -59,10 +53,11 @@ export const Project: React.FC = () => {
         throw new Error('Translation failed')
       }
 
-      // Start polling for status updates
+      // Poll using the freshly fetched status (not stale closure state) so the
+      // interval reliably stops once the job finishes.
       const interval = setInterval(async () => {
-        await fetchProject()
-        if (project?.status === 'completed' || project?.status === 'failed') {
+        const latest = await fetchProject()
+        if (latest && (latest.status === 'completed' || latest.status === 'failed')) {
           clearInterval(interval)
         }
       }, 2000)
