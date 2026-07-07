@@ -28,6 +28,9 @@ python/.env
 python/.env.*
 server/.env
 server/.env.*
+# ...but do track example templates (no secrets)
+!.env.example
+!server/.env.example
 
 # Python
 .venv

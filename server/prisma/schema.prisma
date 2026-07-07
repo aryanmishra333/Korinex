@@ -1,0 +1,42 @@
+// Prisma schema for Korinex.
+// Run migrations with: npx prisma migrate dev --name <change>
+// Regenerate client with: npx prisma generate
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  name      String?
+  avatarUrl String?   @map("avatar_url")
+  // OAuth linkage (provider + provider-specific id). Null for the interim local user.
+  provider   String?
+  providerId String? @map("provider_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  projects  Project[]
+
+  @@unique([provider, providerId])
+  @@map("users")
+}
+
+model Project {
+  id                String   @id @default(uuid())
+  userId            String   @map("user_id")
+  title             String
+  status            String   @default("pending") // pending | processing | completed | failed
+  pdfPath           String?  @map("pdf_path")
+  translatedPdfPath String?  @map("translated_pdf_path")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("projects")
+}
